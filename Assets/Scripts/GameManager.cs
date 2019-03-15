@@ -165,10 +165,11 @@ public class GameManager : MonoBehaviour
         remainingApples = GameObject.FindGameObjectsWithTag("apple");
         foreach(GameObject g in remainingApples)
             Destroy(g);
-        infoText.text = "Left Click to Restart";
+        //infoText.text = "Left Click to Restart";
         score = 0;
         numStrikes = 3;
         gameIsOver = true;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
     }
 
 
