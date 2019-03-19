@@ -75,6 +75,7 @@ public class TitleSceneManager : MonoBehaviour
         if (!PlayerPrefs.HasKey("volume"))
         {
             PlayerPrefs.SetFloat("volume", 1);
+            volumeSlider.value = PlayerPrefs.GetFloat("volume");
         } else
         {
             volumeSlider.value = PlayerPrefs.GetFloat("volume");
