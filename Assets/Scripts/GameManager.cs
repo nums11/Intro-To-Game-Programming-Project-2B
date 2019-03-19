@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
         //Getting Sound Effects
         appleCollectSound = GameObject.Find("AppleCollect").GetComponent<AudioSource>();
         appleMissSound = GameObject.Find("AppleMiss").GetComponent<AudioSource>();
+        appleCollectSound.volume = PlayerPrefs.GetFloat("volume");
+        appleMissSound.volume = PlayerPrefs.GetFloat("volume");
 
         //Set background Image to fill screen
         backgroundImage = GameObject.Find("BackgroundImage");
@@ -155,6 +157,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //checks if score is a top score then adds it to the leaderboard
+    void addScoreToLeaderboard()
+    {
+        //read all the values from the leaderboard into a list
+        List<int> leaderboardScores = new List<int>();
+        bool indexWasSet = false;
+        int leaderboardScore, insertIndex = -1;
+        for (int i = 0; i < 10; i++)
+        {
+            if(i == 0)
+                leaderboardScore = PlayerPrefs.GetInt("Leaderboard");
+            else
+                leaderboardScore = PlayerPrefs.GetInt("Leaderboard" + i);
+            leaderboardScores.Add(leaderboardScore);
+            if (score > leaderboardScore && !indexWasSet)
+            {
+                insertIndex = i;
+                indexWasSet = true;
+            }
+        }
+        if (indexWasSet)
+        {
+            leaderboardScores.Insert(insertIndex, score); //add the score to the leaderboard
+            leaderboardScores.RemoveAt(leaderboardScores.Count - 1); //remove the lowest score
+            //read the new leaderboard into the Leaderboard pref
+            for (int i = 0; i < 10; i++)
+            {
+                if(i == 0)
+                    PlayerPrefs.SetInt("Leaderboard", leaderboardScores[i]);
+                else
+                    PlayerPrefs.SetInt("Leaderboard" + i, leaderboardScores[i]);
+            }
+        }
+
+    }
+
     //stops all objects and ends the game
     public void EndGame()
     {
@@ -166,6 +204,7 @@ public class GameManager : MonoBehaviour
         foreach(GameObject g in remainingApples)
             Destroy(g);
         //infoText.text = "Left Click to Restart";
+        addScoreToLeaderboard();
         score = 0;
         numStrikes = 3;
         gameIsOver = true;

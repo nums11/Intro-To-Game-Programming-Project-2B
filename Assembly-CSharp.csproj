@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\CollisionDetector.cs" />
      <Compile Include="Assets\Scripts\EndSceneManager.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\HighScoreManager.cs" />
      <Compile Include="Assets\Scripts\TitleSceneManager.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Nums/Desktop/Intro to Game Programming/Mbiziwo-TiapoNumfor_Project2A/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
